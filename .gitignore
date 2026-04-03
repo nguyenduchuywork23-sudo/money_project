@@ -1,0 +1,63 @@
+# Python Môi trường & Bộ nhớ Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+venv/
+money_env/
+.env
+
+# Thư mục chứa Dataset gốc và Dataset tự kết xuất
+# Bỏ qua để tránh đưa hình ảnh dung lượng lớn lên Github 
+Dataset_VND/
+Dataset_India_Thai/
+Dataset_INR/
+Dataset_THB/
+yolo_merged_dataset/
+ResNet_Data/
+datasets/
+
+# Tệp Cân Nặng (Trọng số Mô hình - Mô hình Deep Learning)
+# Cấu hình Github Releases nếu muốn Share
+*.pt
+*.pth
+*.weights
+*.onnx
+
+# Nhật ký Huấn Luyện (Biểu đồ, Báo cáo, Console Logs)
+runs/
+wandb/
+resnet_training_history.png
+confusion_matrix.png
+classification_report.txt
+resnet_metrics.json
+inference_result.jpg
+
+# Môi trường IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# MacOS
+.DS_Store
