@@ -6,7 +6,7 @@ import random
 # Tăng giới hạn kích thước hình ảnh nếu cần tránh Image Decompression Bomb ERROR
 Image.MAX_IMAGE_PIXELS = None 
 
-BASE_DIR = Path(r'C:\Users\NMHUNG\Downloads\money_project')
+BASE_DIR = Path(r'C:\Users\Nguye\OneDrive\Desktop\money_project')
 OUT_DIR = BASE_DIR / 'ResNet_Data'
 
 VND_DIR = BASE_DIR / 'Dataset_VND' / 'VND'

@@ -46,8 +46,7 @@ To maximize accuracy and bypass dataset inconsistencies (e.g., bounding box vari
 Ensure you have `Python 3.10` environments configured.
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/money-recognition-ai.git
-cd money-recognition-ai
+
 
 # Install core dependencies
 pip install torch torchvision ultralytics opencv-python Pillow scikit-learn matplotlib seaborn streamlit
@@ -76,7 +75,17 @@ python train_resnet.py
 
 ---
 
-## 📸 Real-Time Application (Webcam Demo)
+## 🔍 Command-Line Inference
+
+To test the trained models on a single image without launching the Web UI, you can use the command-line inference script:
+```bash
+python inference.py <path_to_your_image.jpg>
+```
+The script will perform the full 3-stage pipeline (YOLOv8 Localization -> Extract ROI -> ResNet50 Classification) and output an annotated image named `inference_result.jpg` in your current directory.
+
+---
+
+## 📸 Real-Time Application 
 
 Once you compile the weights (`best.pt`, `best_resnet.pth`, and `resnet_classes.txt`), bring them to the root repository folder.
 
@@ -84,7 +93,7 @@ Spin up the elegant UI instantly via Streamlit to demonstrate actual capability 
 ```bash
 streamlit run app.py
 ```
-Toggle the "BẬT WEBCAM SĂN TIỀN" checkbox on the left sidebar, showcase a banknote, and watch the system instantly overlay the denomination in bright green bounding boxes.
+Toggle the "START AI ANALYSIS" checkbox on the left sidebar, showcase a banknote, and watch the system instantly overlay the denomination in bright green bounding boxes.
 
 ---
 

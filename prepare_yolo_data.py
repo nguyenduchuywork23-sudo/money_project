@@ -5,7 +5,7 @@ from pathlib import Path
 
 random.seed(42)
 
-BASE_DIR = Path(r'C:\Users\NMHUNG\Downloads\money_project')
+BASE_DIR = Path(r'C:\Users\Nguye\OneDrive\Desktop\money_project')
 OUT_DIR = BASE_DIR / 'yolo_merged_dataset'
 
 VND_DIR = BASE_DIR / 'Dataset_VND' / 'VND'

@@ -1,0 +1,127 @@
+python train_resnet.py
+Using environment: cuda
+Data loading complete. Total Classes (denominations): 19
+Downloading: "https://download.pytorch.org/models/resnet50-0676ba61.pth" to /srv/nns/cache/torch/hub/checkpoints/resnet50-0676ba61.pth
+100.0%
+STARTING RESNET TRAINING...
+Epoch 1/50
+----------
+Train Loss: 0.9433 Acc: 0.6839
+Val Loss: 0.4660 Acc: 0.8375
+Epoch 2/50
+----------
+Train Loss: 0.4397 Acc: 0.8529
+Val Loss: 0.2815 Acc: 0.9037
+Epoch 3/50
+----------
+Train Loss: 0.3309 Acc: 0.8880
+Val Loss: 0.3207 Acc: 0.8832
+Epoch 4/50
+----------
+Train Loss: 0.2371 Acc: 0.9180
+Val Loss: 0.2523 Acc: 0.9090
+Epoch 5/50
+----------
+Train Loss: 0.2028 Acc: 0.9341
+Val Loss: 0.1680 Acc: 0.9473
+Epoch 6/50
+----------
+Train Loss: 0.1780 Acc: 0.9413
+Val Loss: 0.2057 Acc: 0.9322
+Epoch 7/50
+----------
+Train Loss: 0.1825 Acc: 0.9435
+Val Loss: 0.2783 Acc: 0.9295
+Epoch 8/50
+----------
+Train Loss: 0.1546 Acc: 0.9497
+Val Loss: 0.1198 Acc: 0.9682
+Epoch 9/50
+----------
+Train Loss: 0.1333 Acc: 0.9570
+Val Loss: 0.1316 Acc: 0.9575
+Epoch 10/50
+----------
+Train Loss: 0.1138 Acc: 0.9649
+Val Loss: 0.1899 Acc: 0.9365
+Epoch 11/50
+----------
+Train Loss: 0.1309 Acc: 0.9593
+Val Loss: 0.1215 Acc: 0.9650
+Epoch 12/50
+----------
+Train Loss: 0.1141 Acc: 0.9617
+Val Loss: 0.1220 Acc: 0.9677
+Epoch 13/50
+----------
+Train Loss: 0.0585 Acc: 0.9826
+Val Loss: 0.0673 Acc: 0.9806
+Epoch 14/50
+----------
+Train Loss: 0.0422 Acc: 0.9871
+Val Loss: 0.0838 Acc: 0.9785
+Epoch 15/50
+----------
+Train Loss: 0.0435 Acc: 0.9860
+Val Loss: 0.0822 Acc: 0.9817
+Epoch 16/50
+----------
+Train Loss: 0.0431 Acc: 0.9877
+Val Loss: 0.0813 Acc: 0.9785
+Epoch 17/50
+----------
+Train Loss: 0.0386 Acc: 0.9881
+Val Loss: 0.0710 Acc: 0.9828
+Epoch 18/50
+----------
+Train Loss: 0.0243 Acc: 0.9919
+Val Loss: 0.0621 Acc: 0.9817
+Epoch 19/50
+----------
+Train Loss: 0.0141 Acc: 0.9956
+Val Loss: 0.0518 Acc: 0.9882
+Epoch 20/50
+----------
+Train Loss: 0.0108 Acc: 0.9969
+Val Loss: 0.0600 Acc: 0.9828
+Epoch 21/50
+----------
+Train Loss: 0.0160 Acc: 0.9948
+Val Loss: 0.0516 Acc: 0.9871
+Epoch 22/50
+----------
+Train Loss: 0.0132 Acc: 0.9955
+Val Loss: 0.0551 Acc: 0.9871
+Epoch 23/50
+----------
+Train Loss: 0.0107 Acc: 0.9969
+Val Loss: 0.0543 Acc: 0.9860
+Epoch 24/50
+----------
+Train Loss: 0.0204 Acc: 0.9933
+Val Loss: 0.0633 Acc: 0.9839
+Epoch 25/50
+----------
+Train Loss: 0.0100 Acc: 0.9971
+Val Loss: 0.0704 Acc: 0.9860
+Epoch 26/50
+----------
+Train Loss: 0.0078 Acc: 0.9979
+Val Loss: 0.0538 Acc: 0.9882
+Epoch 27/50
+----------
+Train Loss: 0.0065 Acc: 0.9977
+Val Loss: 0.0665 Acc: 0.9833
+Epoch 28/50
+----------
+Train Loss: 0.0052 Acc: 0.9989
+Val Loss: 0.0612 Acc: 0.9855
+Epoch 29/50
+----------
+Train Loss: 0.0047 Acc: 0.9989
+Val Loss: 0.0596 Acc: 0.9865
+>> Early stopping triggered at Epoch 29 due to no improvement in Val accuracy.
+Training complete! Best accuracy (Val Acc): 0.9882
+Generating plots and reports...
+
+[SUCCESS] Model weights, plots, and metric reports saved successfully.

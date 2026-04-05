@@ -13,14 +13,14 @@ import os
 def train_model():
     data_dir = 'ResNet_Data'
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(f"Đang sử dụng môi trường: {device}")
+    print(f"Using device: {device}")
 
     # Data Augmentation & Normalization
     data_transforms = {
         'train': transforms.Compose([
             transforms.Resize((224, 224)),
             transforms.RandomHorizontalFlip(),
-            transforms.ColorJitter(brightness=0.2, contrast=0.2), # Thay đổi độ sáng/tương phản để chống Overfitting
+            transforms.ColorJitter(brightness=0.2, contrast=0.2), # Adjust brightness/contrast for data augmentation
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ]),
@@ -41,18 +41,18 @@ def train_model():
     dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
     class_names = image_datasets['train'].classes
     num_classes = len(class_names)
-    print(f"Hoàn tất tải dữ liệu. Tổng số Class (mệnh giá): {num_classes}")
+    print(f"Data loading complete. Total classes: {num_classes}")
 
     # Build Model from Pretrained ResNet50
     model = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
     num_ftrs = model.fc.in_features
-    # Thay thay lớp Custom Classification cho số lượng class của chúng ta
+    # Replace fully connected layer for custom classification
     model.fc = nn.Linear(num_ftrs, num_classes)
     model = model.to(device)
 
     # Optimizer & Loss Function
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-4) # AdamW giúp hội tụ nhanh
+    optimizer = optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-4) # AdamW optimizer for faster convergence
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', patience=3, factor=0.5)
 
     num_epochs = 50
@@ -63,7 +63,7 @@ def train_model():
 
     history = {'train_loss': [], 'val_loss': [], 'train_acc': [], 'val_acc': []}
 
-    print("BẮT ĐẦU HUẤN LUYỆN RESNET...")
+    print("STARTING RESNET50 TRAINING...")
     for epoch in range(num_epochs):
         print(f'Epoch {epoch+1}/{num_epochs}')
         print('-' * 10)
@@ -101,7 +101,7 @@ def train_model():
 
             print(f'{phase.capitalize()} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}')
 
-            # Áp dụng Scheduler và kiểm tra Early Stopping
+            # Apply scheduler and check early stopping
             if phase == 'val':
                 scheduler.step(epoch_loss)
                 if epoch_acc > best_acc:
@@ -112,17 +112,17 @@ def train_model():
                     epochs_no_improve += 1
 
         if epochs_no_improve >= patience:
-            print(f">> Early stopping kích hoạt ở Epoch {epoch+1} do không cải thiện độ chính xác trên Val.")
+            print(f">> Early stopping triggered at Epoch {epoch+1}.")
             break
 
-    print(f'Huấn luyện xong! Độ chính xác cao nhất (Val Acc): {best_acc:.4f}')
+    print(f'Training complete! Best Validation Accuracy: {best_acc:.4f}')
     
     # -----------------------------
-    # Sinh biểu đồ Báo Cáo
+    # Generate Evaluation Reports
     # -----------------------------
-    print("Đang tạo các biểu đồ và báo cáo...")
+    print("Generating plots and metrics reports...")
     
-    # 1. Đồ thị Loss / Accuracy
+    # 1. Plot Loss / Accuracy Curves
     plt.figure(figsize=(12, 4))
     plt.subplot(1, 2, 1)
     plt.plot(history['train_loss'], label='Train')
@@ -138,11 +138,11 @@ def train_model():
     plt.savefig('resnet_loss_acc_curves.png')
     plt.close()
 
-    # Tải lại trọng số tốt nhất trước khi xuất Confusion Matrix
+    # Load best model weights before exporting Confusion Matrix
     model.load_state_dict(best_model_wts)
     torch.save(model.state_dict(), 'best_resnet.pth')
     
-    # Kiểm tra metric trên tập Val
+    # Evaluate metrics on Validation set
     model.eval()
     all_preds = []
     all_labels = []
@@ -155,29 +155,29 @@ def train_model():
             all_preds.extend(preds.cpu().numpy())
             all_labels.extend(labels.cpu().numpy())
             
-    # 2. Lưu Text Report chứa F1-Score, Precision, Recall
+    # 2. Save Text Report with F1-Score, Precision, Recall
     report = classification_report(all_labels, all_preds, target_names=class_names, zero_division=0)
     with open("resnet_metrics_report.txt", "w", encoding='utf-8') as f:
-        f.write("BÁO CÁO NHẬN DIỆN MỆNH GIÁ RESNET\n")
+        f.write("RESNET50 CLASSIFICATION REPORT\n")
         f.write("="*40 + "\n")
         f.write(report)
         
-    # 3. Vẽ Confusion Matrix (Bản đồ nhiệt nhầm lẫn)
+    # 3. Plot Confusion Matrix
     cm = confusion_matrix(all_labels, all_preds)
-    plt.figure(figsize=(20, 16)) # Để size bự do có tới 24 class
+    plt.figure(figsize=(20, 16)) # Large figure size for multi-class representation
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=class_names, yticklabels=class_names)
-    plt.ylabel('Giá trị Thực tế (True Label)')
-    plt.xlabel('Giá trị Dự đoán (Predicted Label)')
+    plt.ylabel('True Label')
+    plt.xlabel('Predicted Label')
     plt.title('ResNet Confusion Matrix')
     plt.tight_layout()
     plt.savefig('resnet_confusion_matrix.png')
     plt.close()
     
     with open("resnet_classes.txt", "w") as f:
-        # Ghi lại vị trí mảng class khi inference load lại
+        # Save class names for inference
         f.write(",".join(class_names))
 
-    print("\n[THÀNH CÔNG] Toàn bộ Model, Đồ thị và Text Metric Report đã được lưu!")
+    print("\n[SUCCESS] Model weights, plots, and metric reports saved successfully.")
 
 if __name__ == '__main__':
     train_model()
